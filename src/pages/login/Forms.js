@@ -1,6 +1,6 @@
 import { Button, TextField, IconButton, Tooltip } from "@mui/material";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import {
@@ -20,10 +20,13 @@ import { PulseLoader } from "react-spinners";
 import GithubSVG from "../../svg/github";
 import FacebookSVG from "../../svg/facebook";
 import GoogleSVG from "../../svg/google";
+import { Loginusers } from "../../feature/slice/userSlice";
+import { useDispatch } from "react-redux";
 
 const Forms = () => {
   const [passShow, setPassShow] = useState("password");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const auth = getAuth();
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
@@ -69,6 +72,8 @@ const Forms = () => {
             progress: undefined,
             theme: "light",
           });
+          dispatch(Loginusers(user));
+          localStorage.setItem("users", JSON.stringify(user));
           navigate("/");
           setLoading(false);
         } else {
