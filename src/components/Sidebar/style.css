@@ -18,11 +18,33 @@
   border-radius: 50%;
   overflow: hidden;
   margin-top: 20px;
+  position: relative;
 }
-
 .profile__image img {
   width: 100%;
   height: 100%;
+}
+.profile__image:hover .profile__overlay {
+  opacity: 1;
+}
+.profile__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+.profile__overlay svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--bg-color);
 }
 .profile__name {
   font-family: var(--primary-font);
@@ -32,48 +54,59 @@
   color: var(--white-color);
   text-transform: capitalize;
 }
-.sidebar__menu__icon {
+.sidebar__icon {
+  height: 70%;
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  row-gap: 6px;
-  text-align: center;
-}
-.sidebar__items {
-  width: 60px;
-  height: 40px;
-  background: var(--bg-color);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  margin: 40px 0;
   position: relative;
+  z-index: 1;
 }
-.sidebar__items svg {
-  width: 20px;
-  height: 20px;
-  fill: var(--primary-color);
-}
-
-.sidebar__items::before {
+.sidebar__icon.active::after {
   content: "";
   position: absolute;
-  width: 4px;
-  height: 100%;
-  top: 0;
+  top: 50%;
   right: 0;
+  transform: translateY(-50%);
+  z-index: -1;
+  width: 85%;
+  height: 60px;
+  background: var(--bg-color);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+}
+.sidebar__icon.active::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 60px;
   background: var(--primary-color);
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  cursor: pointer;
+}
+.sidebar__icon svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--bg-color);
+  cursor: pointer;
+}
+.sidebar__icon.active svg {
+  fill: var(--primary-color);
 }
 .profile__logout {
   display: flex;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 .profile__logout__icon svg {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   fill: var(--white-color);
+  cursor: pointer;
 }

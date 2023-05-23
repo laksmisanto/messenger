@@ -1,6 +1,7 @@
 import React from "react";
 import SidebarIcon from "./SidebarIcon";
 import { GoSignOut } from "react-icons/go";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import "./style.css";
 
 const Sidebar = () => {
@@ -9,7 +10,12 @@ const Sidebar = () => {
       <div className="sidebar__container">
         <div className="sidebar__profile__info">
           <div className="profile__image">
-            <img src="/assets/profile.jpg" alt="profile__image" />
+            <picture>
+              <img src="/assets/profile.jpg" alt="profile__image" />
+            </picture>
+            <div className="profile__overlay">
+              <AiOutlineCloudUpload />
+            </div>
           </div>
           <h4 className="profile__name">laksmi santo</h4>
         </div>
