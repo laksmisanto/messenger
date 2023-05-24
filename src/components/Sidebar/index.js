@@ -3,8 +3,27 @@ import SidebarIcon from "./SidebarIcon";
 import { GoSignOut } from "react-icons/go";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import "./style.css";
+import { getAuth, signOut } from "firebase/auth";
+import { Loginusers } from "../../feature/slice/userSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const auth = getAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem("users");
+        dispatch(Loginusers(null));
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <div className="sidebar__container">
@@ -23,7 +42,7 @@ const Sidebar = () => {
           <SidebarIcon />
         </div>
         <div className="profile__logout">
-          <div className="profile__logout__icon">
+          <div className="profile__logout__icon" onClick={handleLogout}>
             <GoSignOut />
           </div>
         </div>
