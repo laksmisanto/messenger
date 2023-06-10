@@ -7,11 +7,14 @@ import { getAuth, signOut } from "firebase/auth";
 import { Loginusers } from "../../feature/slice/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Modals from "../modal";
 
 const Sidebar = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
 
   const handleLogout = () => {
     signOut(auth)
@@ -28,7 +31,7 @@ const Sidebar = () => {
     <>
       <div className="sidebar__container">
         <div className="sidebar__profile__info">
-          <div className="profile__image">
+          <div className="profile__image" onClick={handleOpen}>
             <picture>
               <img src="/assets/profile.jpg" alt="profile__image" />
             </picture>
@@ -46,6 +49,7 @@ const Sidebar = () => {
             <GoSignOut />
           </div>
         </div>
+        <Modals open={open} setOpen={setOpen} />
       </div>
     </>
   );

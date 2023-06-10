@@ -1,0 +1,14 @@
+.modal__box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 350px;
+  background: var(--bg-color);
+  border: none !important;
+  outline: none;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  border-radius: 8px;
+}

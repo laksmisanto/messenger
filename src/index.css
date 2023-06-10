@@ -9,6 +9,7 @@
   --orange-color: #ea6c00;
   --active-color: #00ff75;
   --shadow: 2px 2px 8px #bbb, -2px -2px 8px #fff;
+  --searchBox-bg:#efefef;
 }
 * {
   margin: 0;
