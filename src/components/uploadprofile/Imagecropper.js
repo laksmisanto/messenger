@@ -1,38 +1,13 @@
-import React, { createRef, useState } from "react";
-import Cropper, { ReactCropperElement } from "react-cropper";
-import "cropperjs/dist/cropper.css";
-import "./style.css";
+import React from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
-const Imagecropper = () => {
-  const [image, setImage] = useState();
-  const [cropData, setCropData] = useState("#");
-  const cropperRef = createRef < ReactCropperElement > null;
-
-  const getCropData = () => {
-    if (typeof cropperRef.current?.cropper !== "undefined") {
-      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-    }
-  };
+const Imagecropper = ({ setImage }) => {
   return (
-    <>
-      <h2>this is image cropper</h2>
-      <Cropper
-        ref={cropperRef}
-        style={{ height: 400, width: "100%" }}
-        zoomTo={0.5}
-        initialAspectRatio={1}
-        preview=".img-preview"
-        src={image}
-        viewMode={1}
-        minCropBoxHeight={10}
-        minCropBoxWidth={10}
-        background={false}
-        responsive={true}
-        autoCropArea={1}
-        checkOrientation={false}
-        guides={true}
-      />
-    </>
+    <div className="cropper__box">
+      <div className="close__icon" onClick={() => setImage("")}>
+        <AiOutlineClose />
+      </div>
+    </div>
   );
 };
 

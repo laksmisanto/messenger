@@ -6,10 +6,10 @@
   align-items: center;
   flex-direction: column;
 }
-.upload p{
+.upload p {
   font-family: var(--primary-font);
   font-size: 18px;
-  color:var(--black-color);
+  color: var(--black-color);
   margin-top: 20px;
 }
 .upload__icon {
@@ -26,4 +26,30 @@
 .upload__icon svg {
   width: 25px;
   height: 25px;
+}
+
+/* image cropper section */
+.cropper__box {
+  position: absolute;
+  width: 800px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-color);
+  box-shadow: var(--shadow);
+}
+.close__icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-color);
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  top: -20px;
+  right: -20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }

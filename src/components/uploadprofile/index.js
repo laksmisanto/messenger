@@ -1,6 +1,7 @@
 import { React, useRef, useState } from "react";
 import { BsCardImage } from "react-icons/bs";
 import "./style.css";
+import Imagecropper from "./Imagecropper";
 
 const Uploadprofilephoto = () => {
   const [image, setImage] = useState("");
@@ -18,7 +19,6 @@ const Uploadprofilephoto = () => {
     };
     reader.readAsDataURL(files[0]);
   };
-  console.info(image);
   return (
     <>
       <input hidden type="file" ref={upload} onChange={handleProfileupload} />
@@ -27,6 +27,9 @@ const Uploadprofilephoto = () => {
           <BsCardImage />
         </div>
         <p>upload image</p>
+        <div className="image__cropper">
+          {image && <Imagecropper setImage={setImage} />}
+        </div>
       </div>
     </>
   );
