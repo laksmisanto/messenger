@@ -22,7 +22,7 @@ const Modals = ({ open, setOpen }) => {
       >
         <Fade in={open}>
           <Box className="modal__box">
-            <Uploadprofilephoto />
+            <Uploadprofilephoto setOpen={setOpen} />
           </Box>
         </Fade>
       </Modal>

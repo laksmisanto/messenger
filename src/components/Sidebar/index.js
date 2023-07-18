@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import SidebarIcon from "./SidebarIcon";
 import { GoSignOut } from "react-icons/go";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import "./style.css";
 import { getAuth, signOut } from "firebase/auth";
 import { Loginusers } from "../../feature/slice/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Modals from "../modal";
 
@@ -13,9 +13,9 @@ const Sidebar = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-
+  const user = useSelector((users) => users.login.loggedIn);
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -33,7 +33,7 @@ const Sidebar = () => {
         <div className="sidebar__profile__info">
           <div className="profile__image" onClick={handleOpen}>
             <picture>
-              <img src="/assets/profile.jpg" alt="profile__image" />
+              <img src={user.photoURL} alt="profile__image" />
             </picture>
             <div className="profile__overlay">
               <AiOutlineCloudUpload />

@@ -53,3 +53,21 @@
   align-items: center;
   cursor: pointer;
 }
+.preview__image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-color);
+  overflow: hidden;
+  margin: 10px auto;
+}
+.preview__image .img-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.crop__btn {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
