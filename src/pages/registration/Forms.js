@@ -10,16 +10,19 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PulseLoader } from "react-spinners";
+import { getDatabase, ref, set } from "firebase/database";
 
 const Forms = () => {
   const [passShow, setPassShow] = useState("password");
   const [confirmpassShow, setConfirmpassShow] = useState("password");
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
+  const db = getDatabase();
   const navigate = useNavigate();
 
   const handleHideShow = () => {
@@ -58,19 +61,28 @@ const Forms = () => {
       formik.values.email,
       formik.values.password
     )
-      .then(() => {
-        sendEmailVerification(auth.currentUser).then(() => {
-          toast.success("Email has sent", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
+      .then(({ user }) => {
+        updateProfile(auth.currentUser, {
+          displayName: formik.values.fullname,
+        }).then(() => {
+          set(ref(db, "users/" + user.uid), {
+            username: user.displayName,
+            email: user.email,
+          });
+          sendEmailVerification(auth.currentUser).then(() => {
+            toast.success("Email has sent", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           });
         });
+
         navigate("/login");
         setLoading(false);
       })
