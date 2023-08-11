@@ -41,8 +41,6 @@ const Blockeduser = () => {
     });
   }, []);
 
-  console.log(blockedlist);
-
   //Unblock friends
   const handleUnblock = (item) => {
     set(push(ref(db, "friends")), {
