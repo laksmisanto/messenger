@@ -3,6 +3,7 @@ import "./style.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { useSelector } from "react-redux";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
 const Groups = () => {
   const db = getDatabase();
@@ -50,6 +51,9 @@ const Groups = () => {
             <div className="mygroups__date">
               <p>created</p>
               <span>{item.date}</span>
+            </div>
+            <div className="group__setting">
+              <BiDotsVerticalRounded />
             </div>
           </div>
         ))}

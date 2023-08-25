@@ -97,6 +97,22 @@
   font-weight: 400;
   color: var(--subtitle-color);
 }
+.group__setting {
+  height: 40px;
+  width: 40px;
+  background: var(--searchBox-bg);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.group__setting svg {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  fill: var(--primary-color);
+  cursor: pointer;
+}
 ::-webkit-scrollbar {
   width: 4px;
 }
