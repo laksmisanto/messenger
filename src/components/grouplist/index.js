@@ -47,7 +47,7 @@ const Grouplist = () => {
 
   //handle join group
   const handleJoinGroup = (item) => {
-    set(push(ref(db, "gropujoinreq")), {
+    set(push(ref(db, "groupjoinreq")), {
       groupid: item.id,
       groupname: item.groupname,
       grouptagname: item.grouptagname,

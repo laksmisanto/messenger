@@ -113,6 +113,18 @@
   fill: var(--primary-color);
   cursor: pointer;
 }
+.mygroups__back__btn {
+  margin-bottom: 20px;
+}
+.mygroups__back__btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--bg-color);
+  background: var(--primary-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 ::-webkit-scrollbar {
   width: 4px;
 }
