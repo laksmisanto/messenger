@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import { getDatabase, onValue, ref } from "firebase/database";
+import {
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+} from "firebase/database";
 import { useSelector } from "react-redux";
-import { AiOutlineSearch, AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import { BiDotsVerticalRounded, BiArrowBack } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
+import { BsCheckCircle } from "react-icons/bs";
 
 const Groups = () => {
   const db = getDatabase();
   const [grouplist, setGrouplist] = useState([]);
-  const [showReqGrp, setShowReqGrp] = useState(false);
+  const [showGrpReq, setShowGrpReq] = useState(false);
   const [reqmemberlist, setReqmemberlist] = useState([]);
   const user = useSelector((users) => users.login.loggedIn);
   // show all group
@@ -28,7 +36,7 @@ const Groups = () => {
 
   // show my group people group
   const handleReqgroup = (gitem) => {
-    setShowReqGrp(true);
+    setShowGrpReq(true);
 
     const starCountRef = ref(db, "groupjoinreq/");
     onValue(starCountRef, (snapshot) => {
@@ -36,7 +44,6 @@ const Groups = () => {
       snapshot.forEach((item) => {
         if (item.val().adminid == user.uid && item.val().groupid == gitem.id) {
           grpReqArr.push({ ...item.val(), id: item.key });
-          console.log(item.val());
         }
       });
       setReqmemberlist(grpReqArr);
@@ -45,7 +52,32 @@ const Groups = () => {
 
   // close this group body
   const handleGroupBack = () => {
-    setShowReqGrp(false);
+    setShowGrpReq(false);
+  };
+
+  // handle group request accept
+
+  const handleGrpReqAccept = (item) => {
+    set(push(ref(db, "groupmembers")), {
+      admin: item.admin,
+      adminid: item.adminid,
+      groupname: item.groupname,
+      groupid: item.groupid,
+      grouptagname: item.grouptagname,
+      username: item.username,
+      userid: item.userid,
+      date: `${new Date().getDay()}/${
+        new Date().getMonth() + 1
+      }/${new Date().getFullYear()}`,
+    }).then(() => {
+      remove(ref(db, "groupjoinreq/" + item.id));
+    });
+  };
+
+  //handle group request cancel
+
+  const handleGrpReqCancel = (item) => {
+    remove(ref(db, "groupjoinreq/" + item.id));
   };
 
   return (
@@ -62,27 +94,35 @@ const Groups = () => {
           />
         </div>
       </div>
-      {showReqGrp ? (
+      {showGrpReq ? (
         <div className="mygroups__body">
           <div className="mygroups__back__btn">
             <BiArrowBack onClick={handleGroupBack} />
           </div>
-          {reqmemberlist.map((item, i) => (
-            <div className="mygroups__wrapper" key={i}>
-              <div className="group__req__img">
-                <picture>
-                  <img src="./assets/avatar.png" alt="avatar" />
-                </picture>
+          {reqmemberlist.length > 0 ? (
+            reqmemberlist.map((item, i) => (
+              <div className="mygroups__wrapper" key={i}>
+                <div className="group__req__img">
+                  <picture>
+                    <img src="./assets/avatar.png" alt="avatar" />
+                  </picture>
+                </div>
+                <div className="group__req__info">
+                  <h4>{item.username}</h4>
+                </div>
+                <div className="group__req__btn">
+                  <div className="accept__btn">
+                    <BsCheckCircle onClick={() => handleGrpReqAccept(item)} />
+                  </div>
+                  <div className="close__btn">
+                    <FaTrash onClick={() => handleGrpReqCancel(item)} />
+                  </div>
+                </div>
               </div>
-              <div className="group__req__info">
-                <h4>{item.username}</h4>
-              </div>
-              <div className="group__req__btn">
-                <AiOutlineCheckCircle />
-                <FaTrash />
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <h5 className="no__req">No member request</h5>
+          )}
         </div>
       ) : (
         <div className="mygroups__body">

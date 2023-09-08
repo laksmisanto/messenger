@@ -1,0 +1,106 @@
+.msg__grouplist {
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.msg__grouplist__header {
+  padding-bottom: 12px;
+}
+.msg__grouplist__header h4 {
+  font-family: var(--primary-font);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black-color);
+}
+.msg__grouplist__search__create {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}
+.msg__grouplist__searchBox {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  padding: 8px 20px;
+  background: var(--searchBox-bg);
+  border-radius: 50px;
+}
+.msg__grouplist__searchBox svg {
+  width: 25px;
+  height: 25px;
+  padding-right: 12px;
+}
+.msg__grouplist__searchBox input {
+  font-family: var(--primary-font);
+  font-size: 14px;
+  font-weight: 400;
+  width: 80%;
+  padding: 8px 0;
+  border: none;
+  outline: none;
+  background: var(--searchBox-bg);
+}
+.msg__grouplist__body {
+  overflow-y: auto;
+  height: 200px;
+}
+.msg__grouplist__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--searchBox-bg);
+  padding-bottom: 15px;
+  margin-right: 15px;
+}
+.msg__grouplist__wrapper:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.msg__grouplist__img {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  overflow: hidden;
+}
+.msg__grouplist__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.msg__grouplist__title {
+  width: 85%;
+}
+.msg__grouplist__title h4 {
+  font-family: var(--primary-font);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black-color);
+  padding-bottom: 4px;
+}
+.msg__grouplist__title span {
+  font-family: var(--primary-font);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--subtitle-color);
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-color);
+}
