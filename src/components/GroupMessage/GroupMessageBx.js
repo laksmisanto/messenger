@@ -33,9 +33,7 @@ const GroupMessageBx = () => {
               <h4>CSE Info</h4>
               <span>cse education information</span>
             </div>
-            {/* <div className="msg__grouplist__btn">
-              <Button variant="outlined">Join</Button>
-            </div> */}
+            
           </div>
         </div>
       </div>
