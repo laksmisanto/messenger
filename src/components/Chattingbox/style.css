@@ -1,0 +1,115 @@
+.chatting__box__container {
+  width: 100%;
+  height: 100vh;
+  background: var(--bg-color);
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+}
+.chatting__box__header {
+  width: 100%;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.message__img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+  position: relative;
+}
+.message__img::after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+
+  background: rgb(1, 255, 73);
+  bottom: 4px;
+  right: 4px;
+  border-radius: 50%;
+}
+.message__img img {
+  width: 100%;
+  height: 100%;
+}
+.author__info h4 {
+  font-family: var(--primary-font);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-color);
+  padding-bottom: 8px;
+}
+.author__info p {
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(5, 151, 36);
+}
+.chatting__box__body {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 80vh;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+/* message box design start */
+.message__box__wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.left__chatting {
+  width: 56%;
+  margin-bottom: 40px;
+}
+.left__msg {
+  width: 100%;
+  position: relative;
+}
+.left__msg p {
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 20px 15px;
+  color: var(--white-color);
+  background: var(--msg-bx-clr);
+  border-radius: 8px;
+}
+.left__msg::after {
+  content: "";
+  position: absolute;
+  left: -17px;
+  right: 0px;
+  bottom: -16px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 16px 54px 9px 0;
+  border-color: transparent var(--msg-bx-clr) transparent transparent;
+  transform: rotate(327deg);
+}
+.left__msg__date {
+  width: 100%;
+  text-align: left;
+  margin-top: 8px;
+}
+.left__msg__date span {
+  margin-left: 20px;
+  color: var(--subtitle-color);
+}
+.left__img {
+  width: 60%;
+  height: auto;
+}
+.left__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

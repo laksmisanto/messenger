@@ -1,11 +1,12 @@
 import React from "react";
 import "./style.css";
+import MessageBox from "./MessageBox";
 
-const MessageBox = () => {
+const ChattingBox = () => {
   return (
     <>
-      <div className="message__box__container">
-        <div className="message__box__header">
+      <div className="chatting__box__container">
+        <div className="chatting__box__header">
           <div className="message__img">
             <picture>
               <img src="./assets/avatar.png" alt="avatar" />
@@ -16,13 +17,15 @@ const MessageBox = () => {
             <p>active</p>
           </div>
         </div>
-        <div className="message__box__body">
-          <div className="message__box__wrapper">body</div>
+        <div className="chatting__box__body">
+          <div className="chatting__box__wrapper">
+            <MessageBox />
+          </div>
         </div>
-        <div className="message__box__footer">footer</div>
+        <div className="chatting__box__footer">footer</div>
       </div>
     </>
   );
 };
 
-export default MessageBox;
+export default ChattingBox;

@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import "./style.css";
 import GroupMessageBx from "../../components/GroupMessage/GroupMessageBx";
 import Friends from "../../components/friends";
-import MessageBox from "../../components/MessageBox";
+import ChattingBox from "../../components/Chattingbox";
 
 const Messages = () => {
   return (
@@ -20,7 +20,7 @@ const Messages = () => {
           </Grid>
           <Grid xs={7}>
             <div className="message__box">
-              <MessageBox/>
+              <ChattingBox />
             </div>
           </Grid>
         </Grid>
