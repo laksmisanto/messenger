@@ -8,14 +8,18 @@ const MessageBox = () => {
         <div className="message__box__header">
           <div className="message__img">
             <picture>
-            <img src="./assets/avatar.png" alt="avatar" />
+              <img src="./assets/avatar.png" alt="avatar" />
             </picture>
           </div>
           <div className="author__info">
-          <h4>laksmi santo</h4>
-          <p>active</p>
+            <h4>laksmi santo</h4>
+            <p>active</p>
           </div>
         </div>
+        <div className="message__box__body">
+          <div className="message__box__wrapper">body</div>
+        </div>
+        <div className="message__box__footer">footer</div>
       </div>
     </>
   );
