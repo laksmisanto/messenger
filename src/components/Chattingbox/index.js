@@ -22,7 +22,7 @@ const ChattingBox = () => {
             <MessageBox />
           </div>
         </div>
-        <div className="chatting__box__footer">footer</div>
+        <div className="chatting__box__footer">this is footer section</div>
       </div>
     </>
   );
