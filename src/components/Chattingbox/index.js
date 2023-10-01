@@ -22,7 +22,11 @@ const ChattingBox = () => {
             <MessageBox />
           </div>
         </div>
-        <div className="chatting__box__footer">this is footer section</div>
+        <div className="chatting__box__footer">
+          <div className="input__box">
+            <input type="text" id="message" placeholder="Message" />
+          </div>
+        </div>
       </div>
     </>
   );

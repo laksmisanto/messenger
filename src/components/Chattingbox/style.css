@@ -1,9 +1,10 @@
 .chatting__box__container {
   width: 100%;
-  height: 100vh;
+  height: 98vh;
   background: var(--bg-color);
   box-shadow: var(--shadow);
   box-sizing: border-box;
+  margin-top: 10px;
 }
 .chatting__box__header {
   width: 100%;
@@ -52,8 +53,8 @@
   padding: 20px;
   box-sizing: border-box;
   width: 100%;
-  min-height: 80vh;
-  max-height: 80vh;
+  min-height: 76vh;
+  max-height: 76vh;
   overflow: auto;
 }
 
@@ -175,3 +176,20 @@
 }
 
 /*=========================== footer section css start ===========================*/
+.input__box {
+  width: 40%;
+  margin-top: 4px;
+  margin-left: 20px;
+}
+.input__box input {
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--subtitle-color);
+  width: 100%;
+  padding: 12px 15px;
+  background: var(--searchBox-bg);
+  outline: none;
+  border: none;
+  border-radius: 20px;
+}
