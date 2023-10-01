@@ -1,6 +1,9 @@
 import React from "react";
 import "./style.css";
 import MessageBox from "./MessageBox";
+import { GrEmoji } from "react-icons/gr";
+import { BsCamera } from "react-icons/bs";
+import { Button } from "@mui/material";
 
 const ChattingBox = () => {
   return (
@@ -25,6 +28,15 @@ const ChattingBox = () => {
         <div className="chatting__box__footer">
           <div className="input__box">
             <input type="text" id="message" placeholder="Message" />
+          </div>
+          <div className="emoji">
+            <GrEmoji />
+          </div>
+          <div className="camera">
+            <BsCamera />
+          </div>
+          <div className="send__btn">
+            <Button variant="contained">Send</Button>
           </div>
         </div>
       </div>
