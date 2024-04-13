@@ -10,12 +10,15 @@ import {
   push,
   remove,
 } from "firebase/database";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { activeUserChat } from "../../feature/slice/activeChatting";
 
 const Friends = () => {
   const db = getDatabase();
   const [friendslist, setFriendslist] = useState([]);
   const user = useSelector((users) => users.login.loggedIn);
+
+  const dispatch = useDispatch();
 
   // show friends list
   useEffect(() => {
@@ -61,6 +64,26 @@ const Friends = () => {
     }
   };
 
+  const handleActiveChatting = (item) => {
+    if (item.reciverid == user.uid) {
+      dispatch(
+        activeUserChat({
+          status: "single",
+          id: item.senderid,
+          name: item.sendername,
+        })
+      );
+    } else {
+      dispatch(
+        activeUserChat({
+          status: "single",
+          id: item.reciverid,
+          name: item.recivername,
+        })
+      );
+    }
+  };
+
   return (
     <div className="friends">
       <div className="friends__header">
@@ -83,7 +106,10 @@ const Friends = () => {
                 <img src="./assets/avatar.png" alt="avatar" />
               </picture>
             </div>
-            <div className="friends__title">
+            <div
+              className="friends__title"
+              onClick={() => handleActiveChatting(item)}
+            >
               <h4>
                 {user.uid == item.senderid ? item.recivername : item.sendername}
               </h4>

@@ -21,12 +21,9 @@ const Grouplist = () => {
       grouptagname: grouptagname,
       admin: user.displayName,
       adminid: user.uid,
-      // date: `${new Date().getFullYear()} / ${
-      //   new Date().getMonth() + 1
-      // } / ${new Date().getDay()}`,
-      date: `${new Date().getDay()}/${
+      date: `${new Date().getFullYear()} -${
         new Date().getMonth() + 1
-      }/${new Date().getFullYear()}`,
+      }-${new Date().getDate()}-${new Date().getHours()} - ${new Date().getMinutes()}`,
     }).then(() => {
       setOpen(false);
     });
