@@ -1,3 +1,41 @@
+.capture__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  z-index: 999;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 1px 1px 20px #000;
+}
+.capture__close svg {
+  width: 28px;
+  height: 28px;
+  color: red;
+  transition: all 0.3s linear;
+}
+
+.capture__close svg:hover {
+  rotate: 90deg;
+}
+.capture__image {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000c0f80;
+}
+
 .chatting__box__container {
   width: 100%;
   /* height: 98vh; */
@@ -204,6 +242,7 @@
   box-sizing: border-box;
   background: transparent;
 }
+.attachment,
 .emoji,
 .camera {
   width: 40px;
@@ -211,13 +250,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.attachment svg,
 .emoji svg,
 .camera svg {
   width: 28px;
   height: 28px;
   cursor: pointer;
   color: var(--orange-color);
+  stroke: var(--orange-color);
+}
+.attachment label svg path {
+  cursor: pointer;
+  color: var(--orange-color);
+  stroke: var(--orange-color);
 }
 .send__btn button {
   padding: 10px 24px;

@@ -7,14 +7,16 @@ import Sidebar from "../Sidebar";
 const Rootlayout = () => {
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item xs={1}>
-          <Sidebar />
+      <div className="root__layout">
+        <Grid container spacing={2}>
+          <Grid item xs={1}>
+            <Sidebar />
+          </Grid>
+          <Grid item xs={11}>
+            <Outlet />
+          </Grid>
         </Grid>
-        <Grid item xs={11}>
-          <Outlet />
-        </Grid>
-      </Grid>
+      </div>
     </>
   );
 };
