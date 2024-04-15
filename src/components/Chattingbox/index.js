@@ -13,20 +13,26 @@ import {
   ref as sref,
   uploadBytesResumable,
   getDownloadURL,
+  uploadString,
 } from "firebase/storage";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
+import { v4 as uuidv4 } from "uuid";
+import EmojiPicker from "emoji-picker-react";
+import { AudioRecorder } from "react-audio-voice-recorder";
 
 const ChattingBox = () => {
   const activeChat = useSelector((state) => state.active.activeState);
   const user = useSelector((users) => users.login.loggedIn);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
-  const [capImage, setCapImage] = useState(false);
+  const [openCam, setOpenCam] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
   const db = getDatabase();
   const storage = getStorage();
 
   const handleMsgSend = () => {
+    setShowEmoji(false);
     if (activeChat?.status === "single") {
       set(push(ref(db, "singleMsg")), {
         whosendid: user.uid,
@@ -48,6 +54,7 @@ const ChattingBox = () => {
   const handleEnterPress = (e) => {
     if (e.key == "Enter") {
       handleMsgSend();
+      setShowEmoji(false);
     }
   };
 
@@ -64,8 +71,6 @@ const ChattingBox = () => {
         ) {
           msgArr.push(item.val());
         }
-        // logic error your if condition is not working
-        // msgArr.push(item.val());
       });
       setMsgList(msgArr);
     });
@@ -91,15 +96,10 @@ const ChattingBox = () => {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
         console.log("Image Upload Error : ", error);
       },
       () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // console.log("File available at", downloadURL);
-
           set(push(ref(db, "singleMsg")), {
             whosendid: user.uid,
             whosendname: user.displayName,
@@ -116,15 +116,43 @@ const ChattingBox = () => {
   };
 
   function handleTakePhoto(dataUri) {
-    // Do stuff with the photo...
     console.log("takePhoto", dataUri);
+    const storageRef = sref(storage, uuidv4());
+    uploadString(storageRef, dataUri, "data_url").then((snapshot) => {
+      getDownloadURL(storageRef).then((downloadURL) => {
+        set(push(ref(db, "singleMsg")), {
+          whosendid: user.uid,
+          whosendname: user.displayName,
+          whoreceiveid: activeChat?.id,
+          whoreceivename: activeChat?.name,
+          img: downloadURL,
+          date: `${new Date().getFullYear()}-${
+            new Date().getMonth() + 1
+          }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}`,
+        }).then(() => {
+          setOpenCam(false);
+        });
+      });
+    });
   }
+
+  const handleEmoji = (emoji) => {
+    setMsg((message) => message + emoji.emoji);
+  };
+
+  const addAudioElement = (blob) => {
+    const url = URL.createObjectURL(blob);
+    const audio = document.createElement("audio");
+    audio.src = url;
+    audio.controls = true;
+    document.body.appendChild(audio);
+  };
 
   return (
     <>
-      {capImage && (
+      {openCam && (
         <div className="capture__image">
-          <span className="capture__close" onClick={() => setCapImage(false)}>
+          <span className="capture__close" onClick={() => setOpenCam(false)}>
             <MdOutlineClose />
           </span>
           <Camera
@@ -163,16 +191,43 @@ const ChattingBox = () => {
               onKeyUp={handleEnterPress}
             />
           </div>
+          <div className="audio">
+            <AudioRecorder
+              onRecordingComplete={addAudioElement}
+              audioTrackConstraints={{
+                noiseSuppression: true,
+                echoCancellation: true,
+                // autoGainControl,
+                // channelCount,
+                // deviceId,
+                // groupId,
+                // sampleRate,
+                // sampleSize,
+              }}
+              onNotAllowedOrFound={(err) => console.table(err)}
+              downloadOnSavePress={true}
+              downloadFileExtension="webm"
+              mediaRecorderOptions={{
+                audioBitsPerSecond: 128000,
+              }}
+              // showVisualizer={true}
+            />
+          </div>
           <div className="attachment">
             <label>
               <input type="file" hidden onChange={handleImageUpload} />
               <GrAttachment />
             </label>
           </div>
-          <div className="emoji">
-            <GrEmoji />
+          <div className="emoji__container">
+            <div className="emoji" onClick={() => setShowEmoji(!showEmoji)}>
+              <GrEmoji />
+            </div>
+            <div className="emoji__picker">
+              {showEmoji && <EmojiPicker onEmojiClick={handleEmoji} />}
+            </div>
           </div>
-          <div className="camera" onClick={() => setCapImage(true)}>
+          <div className="camera" onClick={() => setOpenCam(true)}>
             <BsCamera />
           </div>
           <div className="send__btn">

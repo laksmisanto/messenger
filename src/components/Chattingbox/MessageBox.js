@@ -1,6 +1,6 @@
 import { getDatabase, onValue, ref } from "firebase/database";
 import moment from "moment/moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ModalImage from "react-modal-image";
 
@@ -9,13 +9,19 @@ const MessageBox = ({ msgList }) => {
   const activeChat = useSelector((state) => state.active.activeState);
   // const db = getDatabase();
 
+  const scrollMsg = useRef(null);
+
+  useEffect(() => {
+    scrollMsg?.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msgList]);
+
   return (
     <>
       <div className="message__box">
-        <div className="message__box__wrapper">
+        <div className="message__box__wrapper ">
           {activeChat?.status == "single"
             ? msgList.map((item, i) => (
-                <div key={i}>
+                <div key={i} ref={scrollMsg}>
                   {item.whosendid == user.uid ? (
                     item.msg ? (
                       <>

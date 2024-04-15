@@ -275,3 +275,11 @@
   padding: 10px 24px;
   background: var(--primary-color);
 }
+.emoji__container {
+  position: relative;
+}
+.emoji__picker {
+  position: absolute;
+  bottom: 42px;
+  right: 0;
+}
