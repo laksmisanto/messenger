@@ -65,6 +65,7 @@ const Friends = () => {
   };
 
   const handleActiveChatting = (item) => {
+    console.log(item);
     if (item.reciverid == user.uid) {
       dispatch(
         activeUserChat({

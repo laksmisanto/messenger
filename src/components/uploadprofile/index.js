@@ -12,12 +12,13 @@ import {
 import { getAuth, updateProfile } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Loginusers } from "../../feature/slice/userSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const Uploadprofilephoto = ({ setOpen }) => {
   const storage = getStorage();
   const auth = getAuth();
   const dispatch = useDispatch();
-  const storageRef = ref(storage, "some-child");
+  const storageRef = ref(storage, uuidv4());
   const [image, setImage] = useState("");
   const [cropData, setCropData] = useState("#");
   const [cropper, setCropper] = useState();

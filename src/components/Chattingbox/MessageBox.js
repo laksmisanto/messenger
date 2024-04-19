@@ -36,12 +36,23 @@ const MessageBox = ({ msgList }) => {
                           </div>
                         </div>
                       </>
-                    ) : (
+                    ) : item.img ? (
                       <div className="right__chatting">
                         <div className="right__img">
                           <picture>
                             <ModalImage small={item.img} large={item.img} />
                           </picture>
+                        </div>
+                        <div className="right__msg__date">
+                          <span>
+                            {moment(item.date, "YYYYMMDD hh:mm").fromNow()}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="right__chatting">
+                        <div className="right__audio">
+                          <audio controls src={item.audio}></audio>
                         </div>
                         <div className="right__msg__date">
                           <span>
@@ -63,7 +74,7 @@ const MessageBox = ({ msgList }) => {
                         </div>
                       </div>
                     </>
-                  ) : (
+                  ) : item.img ? (
                     <>
                       <div className="left__chatting">
                         <div className="left__img">
@@ -78,6 +89,17 @@ const MessageBox = ({ msgList }) => {
                         </div>
                       </div>
                     </>
+                  ) : (
+                    <div className="left__chatting">
+                      <div className="left__audio">
+                        <audio controls src={item.audio}></audio>
+                      </div>
+                      <div className="left__msg__date">
+                        <span>
+                          {moment(item.date, "YYYYMMDD hh:mm").fromNow()}
+                        </span>
+                      </div>
+                    </div>
                   )}
                 </div>
               ))

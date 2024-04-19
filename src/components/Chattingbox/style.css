@@ -283,3 +283,21 @@
   bottom: 42px;
   right: 0;
 }
+
+.inner__input {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.audio__controller {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.audio__controller svg {
+  width: 24px;
+  height: 24px;
+  color: var(--orange-color);
+  cursor: pointer;
+}

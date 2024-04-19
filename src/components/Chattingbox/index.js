@@ -5,6 +5,7 @@ import { GrEmoji } from "react-icons/gr";
 import { BsCamera } from "react-icons/bs";
 import { GrAttachment } from "react-icons/gr";
 import { MdOutlineClose } from "react-icons/md";
+import { FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
@@ -14,6 +15,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   uploadString,
+  uploadBytes,
 } from "firebase/storage";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
@@ -28,6 +30,8 @@ const ChattingBox = () => {
   const [msgList, setMsgList] = useState([]);
   const [openCam, setOpenCam] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
+  const [audioUrl, setAudioUrl] = useState("");
+  const [audioBlob, setAudioBlob] = useState("");
   const db = getDatabase();
   const storage = getStorage();
 
@@ -142,10 +146,27 @@ const ChattingBox = () => {
 
   const addAudioElement = (blob) => {
     const url = URL.createObjectURL(blob);
-    const audio = document.createElement("audio");
-    audio.src = url;
-    audio.controls = true;
-    document.body.appendChild(audio);
+    setAudioUrl(url);
+    setAudioBlob(blob);
+  };
+  const handleAudioSubmit = () => {
+    const audiostorageRef = sref(storage, audioUrl);
+    uploadBytes(audiostorageRef, audioBlob).then((snapshot) => {
+      getDownloadURL(audiostorageRef).then((downloadURL) => {
+        set(push(ref(db, "singleMsg")), {
+          whosendid: user.uid,
+          whosendname: user.displayName,
+          whoreceiveid: activeChat?.id,
+          whoreceivename: activeChat?.name,
+          audio: downloadURL,
+          date: `${new Date().getFullYear()}-${
+            new Date().getMonth() + 1
+          }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}`,
+        }).then(() => {
+          setAudioUrl("");
+        });
+      });
+    });
   };
 
   return (
@@ -182,37 +203,32 @@ const ChattingBox = () => {
         </div>
         <div className="chatting__box__footer">
           <div className="input__box">
-            <input
-              type="text"
-              id="message"
-              placeholder="Message"
-              value={msg}
-              onChange={(e) => setMsg(e.target.value)}
-              onKeyUp={handleEnterPress}
-            />
+            {!audioUrl ? (
+              <div className="inner__input">
+                <input
+                  type="text"
+                  id="message"
+                  placeholder="Message"
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                  onKeyUp={handleEnterPress}
+                />
+                <AudioRecorder
+                  onRecordingComplete={addAudioElement}
+                  onNotAllowedOrFound={(err) => console.table(err)}
+                  downloadOnSavePress={false}
+                  downloadFileExtension="wav"
+                />
+              </div>
+            ) : (
+              <div className="audio__controller">
+                <audio controls src={audioUrl}></audio>
+                <FaRegTrashAlt onClick={() => setAudioUrl("")} />
+                <FaRegCheckCircle onClick={handleAudioSubmit} />
+              </div>
+            )}
           </div>
-          <div className="audio">
-            <AudioRecorder
-              onRecordingComplete={addAudioElement}
-              audioTrackConstraints={{
-                noiseSuppression: true,
-                echoCancellation: true,
-                // autoGainControl,
-                // channelCount,
-                // deviceId,
-                // groupId,
-                // sampleRate,
-                // sampleSize,
-              }}
-              onNotAllowedOrFound={(err) => console.table(err)}
-              downloadOnSavePress={true}
-              downloadFileExtension="webm"
-              mediaRecorderOptions={{
-                audioBitsPerSecond: 128000,
-              }}
-              // showVisualizer={true}
-            />
-          </div>
+
           <div className="attachment">
             <label>
               <input type="file" hidden onChange={handleImageUpload} />
