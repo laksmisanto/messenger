@@ -57,6 +57,7 @@
   border-bottom: 1px solid var(--searchBox-bg);
   padding-bottom: 15px;
   margin-right: 15px;
+  cursor: pointer;
 }
 .msg__grouplist__wrapper:last-child {
   border-bottom: none;
