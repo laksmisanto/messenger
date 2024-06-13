@@ -10,7 +10,7 @@ const Messages = () => {
     <>
       <div className="messege__container">
         <Grid container justifyContent={"space-around"}>
-          <Grid xs={4}>
+          <Grid xs={12} md={4}>
             <div className="group__list">
               <GroupMessageBx />
             </div>
@@ -18,7 +18,7 @@ const Messages = () => {
               <Friends />
             </div>
           </Grid>
-          <Grid xs={7}>
+          <Grid xs={12} md={7}>
             <div className="message__box">
               <ChattingBox />
             </div>

@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Grid container className="home__page">
-        <Grid xs={4}>
+        <Grid xs={12} md={6} lg={4}>
           <div className="group__list">
             <Grouplist />
           </div>
@@ -20,7 +20,7 @@ const Home = () => {
             <Friendrequest />
           </div>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={12} md={6} lg={4}>
           <div className="friends__container">
             <Friends />
           </div>
@@ -28,7 +28,7 @@ const Home = () => {
             <Groups />
           </div>
         </Grid>
-        <Grid xs={4}>
+        <Grid xs={12} md={6} lg={4}>
           <div className="user__list">
             <Userlist />
           </div>

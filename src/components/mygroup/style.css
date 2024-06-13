@@ -72,6 +72,7 @@
 }
 .mygroups__title,
 .group__req__info {
+  margin-left: 12px;
   width: 60%;
 }
 .mygroups__title h4,

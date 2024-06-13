@@ -13,6 +13,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { BiDotsVerticalRounded, BiArrowBack } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
 import { BsCheckCircle } from "react-icons/bs";
+import moment from "moment/moment";
 
 const Groups = () => {
   const db = getDatabase();
@@ -66,9 +67,9 @@ const Groups = () => {
       grouptagname: item.grouptagname,
       username: item.username,
       userid: item.userid,
-      date: `${new Date().getDay()}/${
+      date: `${new Date().getFullYear()}-${
         new Date().getMonth() + 1
-      }/${new Date().getFullYear()}`,
+      }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}`,
     }).then(() => {
       remove(ref(db, "groupjoinreq/" + item.id));
     });
@@ -139,7 +140,7 @@ const Groups = () => {
               </div>
               <div className="mygroups__date">
                 <p>created</p>
-                <span>{item.date}</span>
+                <span>{moment(item.date, "YYYYMMDD hh:mm").fromNow()}</span>
               </div>
               <div
                 className="group__setting"

@@ -28,6 +28,7 @@ const ChattingBox = () => {
   const user = useSelector((users) => users.login.loggedIn);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
+  const [groupMsgList, setGroupMsgList] = useState([]);
   const [openCam, setOpenCam] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
   const [audioUrl, setAudioUrl] = useState("");
@@ -51,7 +52,19 @@ const ChattingBox = () => {
         setMsg("");
       });
     } else {
-      console.log("group message");
+      set(push(ref(db, "groupMsg")), {
+        whosendid: user.uid,
+        whosendname: user.displayName,
+        whoreceiveid: activeChat?.id,
+        whoreceivename: activeChat?.name,
+        adminid: activeChat?.adminid,
+        msg: msg,
+        date: `${new Date().getFullYear()}-${
+          new Date().getMonth() + 1
+        }-${new Date().getDate()}-${new Date().getHours()}-${new Date().getMinutes()}`,
+      }).then(() => {
+        setMsg("");
+      });
     }
   };
 
@@ -77,6 +90,17 @@ const ChattingBox = () => {
         }
       });
       setMsgList(msgArr);
+    });
+  }, [activeChat?.id]);
+
+  useEffect(() => {
+    const starCountRef = ref(db, "groupMsg");
+    onValue(starCountRef, (snapshot) => {
+      let groupMsgArr = [];
+      snapshot.forEach((item) => {
+        groupMsgArr.push(item.val());
+      });
+      setGroupMsgList(groupMsgArr);
     });
   }, [activeChat?.id]);
 
@@ -198,7 +222,7 @@ const ChattingBox = () => {
         </div>
         <div className="chatting__box__body">
           <div className="chatting__box__wrapper">
-            <MessageBox msgList={msgList} />
+            <MessageBox msgList={msgList} groupMsgList={groupMsgList} />
           </div>
         </div>
         <div className="chatting__box__footer">

@@ -9,10 +9,10 @@ const Rootlayout = () => {
     <>
       <div className="root__layout">
         <Grid container spacing={2}>
-          <Grid item xs={1}>
+          <Grid item xs={3} sm={2} md={1}>
             <Sidebar />
           </Grid>
-          <Grid item xs={11}>
+          <Grid item xs={9} sm={10} md={11}>
             <Outlet />
           </Grid>
         </Grid>
